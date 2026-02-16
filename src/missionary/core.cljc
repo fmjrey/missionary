@@ -552,7 +552,10 @@ Returns a discrete flow producing values from given `collection`. Cancelling bef
 
 (defmacro amb
   {:arglists '([& forms])
-   :doc "In an `ap` block, evaluates each form sequentially and returns successive results."}
+   :doc "In an `ap` block, evaluates each form sequentially and passes each successive result to subsequent forms after `amb`.
+When more than one form is provided, `amb` forks the evaluation context. With just one form it becomes exactly that form.
+With no arguments, `(amb)` terminates the current fork.
+"}
   ([] `(?> none))
   ([form] form)
   ([form & forms]
@@ -563,7 +566,10 @@ Returns a discrete flow producing values from given `collection`. Cancelling bef
 
 (defmacro amb=
   {:arglists '([& forms])
-   :doc "In an `ap` block, evaluates each form concurrently and returns results in order of availability."}
+   :doc "In an `ap` block, evaluates each form concurrently and passes each successive result in order of availability to subsequent forms after `amb`.
+When more than one form is provided, `amb` forks the evaluation context for concurrent execution. With just one form it becomes exactly that form.
+With no arguments, `(amb)` terminates the current fork.
+"}
   ([] `(?> none))
   ([form] form)
   ([form & forms]
